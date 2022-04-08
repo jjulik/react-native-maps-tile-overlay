@@ -6,7 +6,7 @@ import { MapsTileOverlayView } from 'react-native-maps-tile-overlay';
 export default function App() {
   return (
     <View style={styles.container}>
-      <MapsTileOverlayViewManager color="#32a852" style={styles.box} />
+      <MapsTileOverlayView color="#32a852" style={styles.box} />
     </View>
   );
 }
