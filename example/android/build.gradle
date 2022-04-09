@@ -3,8 +3,8 @@
 buildscript {
     ext {
         minSdkVersion = 16
-        compileSdkVersion = 28
-        targetSdkVersion = 32
+        compileSdkVersion = 29
+        targetSdkVersion = 29
     }
     repositories {
         google()
@@ -17,11 +17,6 @@ buildscript {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
-}
-
-plugins {
-  id 'com.android.application' version '7.1.2' apply false
-  id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin' version '2.0.0' apply false
 }
 
 allprojects {

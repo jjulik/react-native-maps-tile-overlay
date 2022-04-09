@@ -1,7 +1,4 @@
-plugins {
-  id "com.android.application"
-  id "com.google.android.libraries.mapsplatform.secrets-gradle-plugin"
-}
+apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
 
@@ -122,6 +119,10 @@ def jscFlavor = 'org.webkit:android-jsc:+'
  */
 def enableHermes = project.ext.react.get("enableHermes", false);
 
+def properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def mapsApiKey = properties.getProperty("MAPS_API_KEY")
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -136,6 +137,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        manifestPlaceholders["MAPS_API_KEY"] = mapsApiKey
     }
     splits {
         abi {
@@ -208,6 +210,13 @@ dependencies {
     }
 
     implementation project(':reactnativemapstileoverlay')
+}
+
+// Run this once to be able to run the application with BUCK
+// puts all compile dependencies into folder libs for BUCK to use
+task copyDownloadableDepsToLibs(type: Copy) {
+    from configurations.compile
+    into 'libs'
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
