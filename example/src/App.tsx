@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import MapView, { Region } from 'react-native-maps';
 
-import { StyleSheet, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
 import { MapsTileOverlayView } from 'react-native-maps-tile-overlay';
 
 export default function App() {
+  const [mapReady, setMapReady] = useState(false);
+
   const [initialLocation] = useState<Region>({
     latitude: 39.833333,
     longitude: -98.583333,
@@ -12,11 +14,23 @@ export default function App() {
     longitudeDelta: 0,
   });
 
+  const onClick = () => {
+    setMapReady(true);
+    console.log('mapReady');
+  };
+
   return (
     <View style={styles.container}>
-      <MapView style={styles.map} initialRegion={initialLocation}>
-        <MapsTileOverlayView color="#32a852" style={styles.box} />
+      <MapView
+        style={styles.map}
+        initialRegion={initialLocation}
+        nativeID="yeet"
+      >
+        <MapsTileOverlayView mapReady={mapReady} urlTemplate="" />
       </MapView>
+      <View style={styles.button}>
+        <Button title="Click me" onPress={onClick} />
+      </View>
     </View>
   );
 }
@@ -34,6 +48,10 @@ const styles = StyleSheet.create({
   },
   map: {
     width: '100%',
-    height: '100%',
+    height: '80%',
   },
+  button: {
+    width: '100%',
+    height: '20%',
+  }
 });

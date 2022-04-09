@@ -1,26 +1,25 @@
 package com.reactnativemapstileoverlay
 
-import android.graphics.Color
-import android.view.View
-import com.facebook.react.uimanager.SimpleViewManager
-import com.facebook.react.uimanager.ThemedReactContext
+import com.facebook.react.uimanager.*
 import com.facebook.react.uimanager.annotations.ReactProp
 
-class MapsTileOverlayViewManager : SimpleViewManager<View>() {
+class MapsTileOverlayViewManager : SimpleViewManager<MapsTileOverlayView>() {
   override fun getName() = "MapsTileOverlayView"
-  private var mapNativeId: String = ""
 
-  override fun createViewInstance(reactContext: ThemedReactContext): View {
-    return View(reactContext)
+  override fun createViewInstance(reactContext: ThemedReactContext): MapsTileOverlayView {
+    return MapsTileOverlayView(reactContext)
   }
 
-  @ReactProp(name = "color")
-  fun setColor(view: View, color: String) {
-    view.setBackgroundColor(Color.parseColor(color))
+  @ReactProp(name = "mapReady")
+  fun setMapReady(view: MapsTileOverlayView, mapReady: Boolean) {
+    view.mapReady = mapReady
+    if (mapReady) {
+      view.tryLoadMap()
+    }
   }
 
-  @ReactProp(name = "mapNativeId")
-  fun setMapNativeId(view: View, mapNativeId: String) {
-    this.mapNativeId = mapNativeId
+  @ReactProp(name = "urlTemplate")
+  fun setUrlTemplate(view: MapsTileOverlayView, urlTemplate: String) {
+    view.urlTemplate = urlTemplate
   }
 }
