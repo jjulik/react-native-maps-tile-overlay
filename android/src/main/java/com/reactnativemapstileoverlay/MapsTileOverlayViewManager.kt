@@ -8,6 +8,7 @@ import com.facebook.react.uimanager.annotations.ReactProp
 
 class MapsTileOverlayViewManager : SimpleViewManager<View>() {
   override fun getName() = "MapsTileOverlayView"
+  private var mapNativeId: String = ""
 
   override fun createViewInstance(reactContext: ThemedReactContext): View {
     return View(reactContext)
@@ -16,5 +17,10 @@ class MapsTileOverlayViewManager : SimpleViewManager<View>() {
   @ReactProp(name = "color")
   fun setColor(view: View, color: String) {
     view.setBackgroundColor(Color.parseColor(color))
+  }
+
+  @ReactProp(name = "mapNativeId")
+  fun setMapNativeId(view: View, mapNativeId: String) {
+    this.mapNativeId = mapNativeId
   }
 }
