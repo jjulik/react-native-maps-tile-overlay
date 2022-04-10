@@ -8,15 +8,15 @@ export default function App() {
   const [mapReady, setMapReady] = useState(false);
 
   const [initialLocation] = useState<Region>({
-    latitude: 39.833333,
-    longitude: -98.583333,
+    latitude: 43.648678,
+    longitude: -79.38231,
     latitudeDelta: 0.3,
     longitudeDelta: 0,
   });
 
-  const onClick = () => {
-    setMapReady(true);
-    console.log('mapReady');
+  const requestHeaders = {
+    'Accept': '*/*',
+    'User-Agent': 'com.example.reactnativemapstileoverlay',
   };
 
   return (
@@ -24,13 +24,15 @@ export default function App() {
       <MapView
         style={styles.map}
         initialRegion={initialLocation}
+        onMapReady={() => setMapReady(true)}
         nativeID="yeet"
       >
-        <MapsTileOverlayView mapReady={mapReady} urlTemplate="" />
+        <MapsTileOverlayView
+          mapReady={mapReady}
+          urlTemplate="https://sampleserver6.arcgisonline.com/arcgis/rest/services/Toronto/ImageServer/exportImage?f=image&bbox={minX}%2C{minY}%2C{maxX}%2C{maxY}&bboxSR=EPSG%3A3857&imageSR=EPSG%3A3857&size={width}%2C{height}&format=png"
+          requestHeaders={requestHeaders}
+        />
       </MapView>
-      <View style={styles.button}>
-        <Button title="Click me" onPress={onClick} />
-      </View>
     </View>
   );
 }
@@ -48,10 +50,6 @@ const styles = StyleSheet.create({
   },
   map: {
     width: '100%',
-    height: '80%',
-  },
-  button: {
-    width: '100%',
-    height: '20%',
+    height: '100%',
   },
 });

@@ -59,8 +59,8 @@ class MapsTileOverlayView(context: Context?) : View(context), OnMapReadyCallback
   }
 
   override fun onMapReady(map: GoogleMap?) {
-    this.map = map
-    if (this.map != null && this.tileProvider != null) {
+    if (this.map == null && this.tileProvider == null) {
+      this.map = map
       // Add the tile provider to the map
       var tileProvider = WMSTileProvider(this.tileSize, this.urlTemplate)
       var tileOverlayOptions = TileOverlayOptions()
@@ -69,7 +69,6 @@ class MapsTileOverlayView(context: Context?) : View(context), OnMapReadyCallback
       tileOverlayOptions.tileProvider(tileProvider)
       this.tileProvider = tileProvider
       this.tileOverlay = this.map?.addTileOverlay(tileOverlayOptions)
-      this.map?.clear()
     }
   }
 
