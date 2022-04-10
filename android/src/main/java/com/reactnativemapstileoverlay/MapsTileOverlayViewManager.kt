@@ -1,5 +1,6 @@
 package com.reactnativemapstileoverlay
 
+import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.uimanager.*
 import com.facebook.react.uimanager.annotations.ReactProp
 
@@ -41,5 +42,10 @@ class MapsTileOverlayViewManager : SimpleViewManager<MapsTileOverlayView>() {
   @ReactProp(name = "opacity", defaultFloat = 1.0f)
   override fun setOpacity(view: MapsTileOverlayView, opacity: Float) {
     view.opacity = opacity
+  }
+
+  @ReactProp(name = "requestHeaders")
+  fun setRequestHeaders(view: MapsTileOverlayView, requestHeaders: ReadableMap) {
+    view.requestHeaders = requestHeaders.toHashMap()
   }
 }

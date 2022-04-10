@@ -13,6 +13,7 @@ class WMSTileProvider(tileSize: Float, urlTemplate: String) : TileProvider {
   var urlTemplate: String = urlTemplate
   var tileSize: Float = tileSize
   var doubleTileSize: Boolean = false
+  var requestHeaders: HashMap<String, Any> = HashMap()
 
   private fun getTileUrl(x: Int, y: Int, zoom: Int): URL? {
     var bb: Array<Double> = getBoundingBox(x, y, zoom)
@@ -28,8 +29,7 @@ class WMSTileProvider(tileSize: Float, urlTemplate: String) : TileProvider {
   private fun downloadTile(url: URL): ByteArray {
     var conn = url.openConnection() as HttpURLConnection ?: throw Exception("I HATE JAVA")
     conn.doInput = true
-    conn.setRequestProperty("Accept", "*/*")
-    conn.setRequestProperty("User-Agent", "com.example.mapdemo")
+    this.requestHeaders.entries.forEach { (k,v) -> conn.setRequestProperty(k, v.toString())}
     conn.connect()
     try {
       conn.inputStream.use { input ->

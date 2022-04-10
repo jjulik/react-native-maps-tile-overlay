@@ -13,6 +13,7 @@ type MapsTileOverlayProps = {
   tileSize?: number;
   doubleTileSize?: boolean;
   opacity?: number;
+  requestHeaders?: any;
 };
 
 const ComponentName = 'MapsTileOverlayView';

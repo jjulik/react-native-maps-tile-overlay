@@ -39,6 +39,13 @@ class MapsTileOverlayView(context: Context?) : View(context), OnMapReadyCallback
       field = value
       this.tileOverlay?.transparency = 1 - value
     }
+  var requestHeaders: HashMap<String, Any> = HashMap()
+    set(value) {
+      field = value
+      this.tileProvider?.requestHeaders = value
+      this.tileOverlay?.clearTileCache()
+    }
+
 
   private var tileProvider: WMSTileProvider? = null
   private var tileOverlay: TileOverlay? = null
