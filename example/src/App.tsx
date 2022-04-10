@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MapView, { Region } from 'react-native-maps';
 
-import { Button, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { MapsTileOverlayView } from 'react-native-maps-tile-overlay';
 
 export default function App() {
