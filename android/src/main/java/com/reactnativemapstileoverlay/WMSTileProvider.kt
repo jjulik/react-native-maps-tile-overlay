@@ -1,14 +1,18 @@
 package com.reactnativemapstileoverlay
 
 import android.util.Log
+import com.google.android.gms.maps.model.Tile
+import com.google.android.gms.maps.model.TileProvider
 import java.lang.Exception
 import java.net.HttpURLConnection
 import java.net.URL
 import kotlin.math.pow
 
-class WMSTileProvider(width: Int, height: Int) {
+class WMSTileProvider(tileSize: Float, urlTemplate: String) : TileProvider {
   private var mapBound: Array<Double> = arrayOf(-20037508.34789244, 20037508.34789244)
-  private var urlTemplate: String = ""
+  var urlTemplate: String = urlTemplate
+  var tileSize: Float = tileSize
+  var doubleTileSize: Boolean = false
 
   private fun getTileUrl(x: Int, y: Int, zoom: Int): URL? {
     var bb: Array<Double> = getBoundingBox(x, y, zoom)
@@ -46,5 +50,16 @@ class WMSTileProvider(width: Int, height: Int) {
       mapBound[1] - (y + 1) * tile,
       mapBound[0] + (x + 1) * tile,
       mapBound[1] - y * tile)
+  }
+
+  override fun getTile(x: Int, y: Int, zoom: Int): Tile {
+    val url = getTileUrl(x, y, zoom) ?: return TileProvider.NO_TILE
+    try {
+      val imageBytes = downloadTile(url)
+      return Tile(x, y, imageBytes)
+    } catch (e: Exception) {
+      Log.e("MapDemo", "Error fetching tile")
+      return TileProvider.NO_TILE
+    }
   }
 }

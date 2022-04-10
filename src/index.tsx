@@ -9,6 +9,10 @@ const LINKING_ERROR =
 type MapsTileOverlayProps = {
   urlTemplate: string;
   mapReady: boolean;
+  zIndex?: number;
+  tileSize?: number;
+  doubleTileSize?: boolean;
+  opacity?: number;
 };
 
 const ComponentName = 'MapsTileOverlayView';

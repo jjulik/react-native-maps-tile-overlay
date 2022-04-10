@@ -22,4 +22,24 @@ class MapsTileOverlayViewManager : SimpleViewManager<MapsTileOverlayView>() {
   fun setUrlTemplate(view: MapsTileOverlayView, urlTemplate: String) {
     view.urlTemplate = urlTemplate
   }
+
+  @ReactProp(name = "zIndex", defaultFloat = -1.0f)
+  override fun setZIndex(view: MapsTileOverlayView, zIndex: Float) {
+    view.zIndex = zIndex
+  }
+
+  @ReactProp(name = "tileSize", defaultFloat = 256.0f)
+  fun setTileSize(view: MapsTileOverlayView, tileSize: Float) {
+    view.tileSize = tileSize
+  }
+
+  @ReactProp(name = "doubleTileSize", defaultBoolean = false)
+  fun setDoubleTileSize(view: MapsTileOverlayView, doubleTileSize: Boolean) {
+    view.doubleTileSize = doubleTileSize
+  }
+
+  @ReactProp(name = "opacity", defaultFloat = 1.0f)
+  override fun setOpacity(view: MapsTileOverlayView, opacity: Float) {
+    view.opacity = opacity
+  }
 }
