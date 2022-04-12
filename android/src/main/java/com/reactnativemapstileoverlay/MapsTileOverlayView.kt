@@ -62,7 +62,7 @@ class MapsTileOverlayView(context: Context?) : View(context), OnMapReadyCallback
     if (this.map == null && this.tileProvider == null) {
       this.map = map
       // Add the tile provider to the map
-      var tileProvider = WMSTileProvider(this.tileSize, this.urlTemplate)
+      var tileProvider = WMSTileProvider(this.tileSize, this.urlTemplate, this.doubleTileSize, this.requestHeaders)
       var tileOverlayOptions = TileOverlayOptions()
       tileOverlayOptions.zIndex(this.zIndex)
       tileOverlayOptions.transparency(1 - this.opacity)

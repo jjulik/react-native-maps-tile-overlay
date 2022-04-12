@@ -8,12 +8,12 @@ import java.net.HttpURLConnection
 import java.net.URL
 import kotlin.math.pow
 
-class WMSTileProvider(tileSize: Float, urlTemplate: String) : TileProvider {
+class WMSTileProvider(tileSize: Float, urlTemplate: String, doubleTileSize: Boolean, requestHeaders: HashMap<String, Any>) : TileProvider {
   private var mapBound: Array<Double> = arrayOf(-20037508.34789244, 20037508.34789244)
   var urlTemplate: String = urlTemplate
   var tileSize: Float = tileSize
-  var doubleTileSize: Boolean = false
-  var requestHeaders: HashMap<String, Any> = HashMap()
+  var doubleTileSize: Boolean = doubleTileSize
+  var requestHeaders: HashMap<String, Any> = requestHeaders
 
   private fun getTileUrl(x: Int, y: Int, zoom: Int): URL? {
     var bb: Array<Double> = getBoundingBox(x, y, zoom)
